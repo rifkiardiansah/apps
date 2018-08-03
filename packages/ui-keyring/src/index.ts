@@ -20,6 +20,7 @@ import getAddresses from './address/all';
 import saveAddress from './address/meta';
 import saveRecent from './address/metaRecent';
 import setTestMode from './setTestMode';
+import toJson from './account/backup';
 
 const state: State = {
   isTestMode: false,
@@ -67,5 +68,7 @@ export default ({
   saveRecent: (address: string): KeyringOption =>
     saveRecent(state, address),
   setTestMode: (isTest: boolean): void =>
-    setTestMode(state, isTest)
+    setTestMode(state, isTest),
+  toJson: (address: string, passphrase?: string): KeyringPair$Json | void =>
+    toJson(state, address, passphrase)
 } as KeyringInstance);
