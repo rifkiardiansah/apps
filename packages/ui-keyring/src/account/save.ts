@@ -3,14 +3,14 @@
 // of the ISC license. See the LICENSE file for details.
 
 import { KeyringPair } from '@polkadot/util-keyring/types';
-import { State } from '../types';
+import { KeyringJson, State } from '../types';
 
 import store from 'store';
 
 import { accountKey } from '../defaults';
 import createOptions from '../options';
 
-export default function saveAccount (state: State, pair: KeyringPair, password?: string): void {
+export default function saveAccount (state: State, pair: KeyringPair, password?: string): KeyringJson {
   const json = pair.toJson(password);
 
   if (!json.meta.whenCreated) {
@@ -20,4 +20,6 @@ export default function saveAccount (state: State, pair: KeyringPair, password?:
   store.set(accountKey(json.address), json);
 
   createOptions(state);
+
+  return json;
 }
