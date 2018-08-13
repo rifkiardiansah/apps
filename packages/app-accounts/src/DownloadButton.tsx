@@ -14,6 +14,7 @@ import keyring from '@polkadot/ui-keyring/index';
 import isUndefined from '@polkadot/util/is/undefined';
 
 import AddressMini from '@polkadot/ui-app/AddressMini';
+import AddressSummary from '@polkadot/ui-app/AddressSummary';
 import Button from '@polkadot/ui-app/Button';
 import Modal from '@polkadot/ui-app/Modal';
 import Unlock from '@polkadot/ui-signer/Unlock';
@@ -108,6 +109,7 @@ export class DownloadButton extends React.PureComponent<Props, State> {
                   isShort
                   value={address}
                 />
+                { address ? <AddressSummary value={address}/> : null }
                 <div className='accounts--Address-modal-message expanded'>
                   <p>
                     <Trans i18nKey='unlock.info'>
