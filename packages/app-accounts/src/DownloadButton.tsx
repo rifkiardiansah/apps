@@ -2,6 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
+import { ApiProps } from '@polkadot/ui-react-rx/types';
 import { Button$Sizes } from '@polkadot/ui-app/Button/types';
 import { BareProps, I18nProps } from '@polkadot/ui-app/types';
 import { KeyringPair$Json } from '@polkadot/util-keyring/types';
@@ -12,8 +13,10 @@ import { Trans } from 'react-i18next';
 import FileSaver from 'file-saver';
 import keyring from '@polkadot/ui-keyring/index';
 import isUndefined from '@polkadot/util/is/undefined';
+import withApi from '@polkadot/ui-react-rx/with/api';
 
 import AddressMini from '@polkadot/ui-app/AddressMini';
+import AddressSummary from '@polkadot/ui-app/AddressSummary';
 import Button from '@polkadot/ui-app/Button';
 import Modal from '@polkadot/ui-app/Modal';
 import Unlock from '@polkadot/ui-signer/Unlock';
@@ -25,7 +28,7 @@ type State = {
   error?: React.ReactNode
 };
 
-type Props = I18nProps & BareProps & {
+type Props = I18nProps & ApiProps & BareProps & {
   icon?: string,
   isCircular?: boolean,
   isPrimary?: boolean,
@@ -106,6 +109,7 @@ export class DownloadButton extends React.PureComponent<Props, State> {
             <div className='ui--grid'>
               <div className='accounts--Address-modal'>
                 <AddressMini isShort value={address} />
+                <AddressSummary value={address} />
                 <div className='accounts--Address-modal-message expanded'>
                   <p>
                     <Trans i18nKey='unlock.info'>
@@ -202,4 +206,8 @@ export class DownloadButton extends React.PureComponent<Props, State> {
   }
 }
 
-export default translate(DownloadButton);
+const Component: React.ComponentType<any> = translate(
+  withApi(DownloadButton)
+);
+
+export default Component;

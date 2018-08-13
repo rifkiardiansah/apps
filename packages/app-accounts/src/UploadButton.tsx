@@ -2,6 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
+import { ApiProps } from '@polkadot/ui-react-rx/types';
 import { Button$Sizes } from '@polkadot/ui-app/Button/types';
 import { BareProps, I18nProps } from '@polkadot/ui-app/types';
 import { KeyringPair$Json } from '@polkadot/util-keyring/types';
@@ -11,8 +12,10 @@ import translate from './translate';
 import { Trans } from 'react-i18next';
 import isUndefined from '@polkadot/util/is/undefined';
 import keyring from '@polkadot/ui-keyring/index';
+import withApi from '@polkadot/ui-react-rx/with/api';
 
 import AddressMini from '@polkadot/ui-app/AddressMini';
+import AddressSummary from '@polkadot/ui-app/AddressSummary';
 import Button from '@polkadot/ui-app/Button';
 import File from '@polkadot/ui-app/Params/Param/File';
 import Modal from '@polkadot/ui-app/Modal';
@@ -26,7 +29,7 @@ type State = {
   uploadedFileKeyringPair: KeyringPair$Json | undefined
 };
 
-type Props = I18nProps & BareProps & {
+type Props = I18nProps & ApiProps & BareProps & {
   icon?: string,
   isCircular?: boolean,
   isPrimary?: boolean,
@@ -141,6 +144,7 @@ export class UploadButton extends React.PureComponent<Props, State> {
             <div className='ui--grid'>
               <div className='accounts--Address-modal'>
                 <AddressMini isShort value={address} />
+                <AddressSummary value={address} />
                 <div className='accounts--Address-modal-message expanded'>
                   <p>
                     <Trans i18nKey='unlock.info'>
@@ -234,4 +238,8 @@ export class UploadButton extends React.PureComponent<Props, State> {
   }
 }
 
-export default translate(UploadButton);
+const Component: React.ComponentType<any> = translate(
+  withApi(UploadButton)
+);
+
+export default Component;
