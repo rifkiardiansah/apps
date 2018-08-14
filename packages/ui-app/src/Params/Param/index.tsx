@@ -44,6 +44,9 @@ class ParamComponent extends React.PureComponent<Props, State> {
     const { className, defaultValue, name, onChange, style } = this.props;
     const type = typeToString(defaultValue.type);
 
+    console.log('this.state', this.state);
+    console.log('this.props', this.props);
+
     return (
       <Component
         className={classes('ui--Param', className)}
