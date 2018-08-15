@@ -40,7 +40,7 @@ export default class AddressMini extends React.PureComponent<Props> {
             value={value}
           />
           <div>{isShort ? toShortAddress(value) : value}</div>
-          {withCopyIcon ? <CopyButton value={value} /> : null }
+          {withCopyIcon ? <CopyButton value={value} /> : null}
         </div>
         {this.renderBalance()}
       </div>
