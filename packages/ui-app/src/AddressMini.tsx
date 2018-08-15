@@ -11,17 +11,19 @@ import IdentityIcon from '@polkadot/ui-react/IdentityIcon';
 import classes from './util/classes';
 import toShortAddress from './util/toShortAddress';
 import Balance from './Balance';
+import CopyButton from './CopyButton';
 
 type Props = BareProps & {
   balance?: BN | Array<BN>,
   isShort?: boolean,
   value?: string,
-  withBalance?: boolean
+  withBalance?: boolean,
+  withCopyIcon?: boolean
 };
 
 export default class AddressMini extends React.PureComponent<Props> {
   render () {
-    const { className, isShort = true, style, value } = this.props;
+    const { className, isShort = true, style, value, withCopyIcon } = this.props;
 
     if (!value) {
       return null;
@@ -38,6 +40,7 @@ export default class AddressMini extends React.PureComponent<Props> {
             value={value}
           />
           <div>{isShort ? toShortAddress(value) : value}</div>
+          {withCopyIcon ? <CopyButton value={value} /> : null }
         </div>
         {this.renderBalance()}
       </div>
