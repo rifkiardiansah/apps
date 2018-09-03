@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps as Props } from '@polkadot/ui-app/types';
+import { I18nProps as Props, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import React from 'react';
 
@@ -172,19 +172,22 @@ class Verify extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeData = (data: string): void => {
+  onChangeData = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const data = eventData && (eventData.value as string);
     const isHexData = isHex(data);
 
     this.nextState({ data, isHexData } as State);
   }
 
-  onChangeSignature = (signature: string): void => {
+  onChangeSignature = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const signature = eventData && (eventData.value as string);
     const isValidSignature = isHex(signature) && signature.length === 130;
 
     this.nextState({ signature, isValidSignature } as State);
   }
 
-  onChangeAddress = (currentPublicKey: Uint8Array): void => {
+  onChangeAddress = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const currentPublicKey = eventData && (eventData.value as Uint8Array);
     const isValidAddress = currentPublicKey && currentPublicKey.length === 32;
 
     this.nextState({ currentPublicKey, isValidAddress } as State);

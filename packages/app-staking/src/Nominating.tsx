@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import React from 'react';
 
@@ -108,8 +108,10 @@ class Nominating extends React.PureComponent<Props> {
     ];
   }
 
-  private onChangeNominee = (nominee: string) => {
+  private onChangeNominee = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => {
     const { intentions } = this.props;
+
+    const nominee = eventData && (eventData.value as string);
 
     this.setState({
       isNomineeValid: intentions.includes(nominee),

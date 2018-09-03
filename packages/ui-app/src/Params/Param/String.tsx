@@ -2,6 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
+import { InputOnChangeEventData } from '../../types';
 import { Props } from '../types';
 
 import React from 'react';
@@ -34,9 +35,10 @@ export default class StringParam extends React.PureComponent<Props> {
     );
   }
 
-  onChange = (value: string): void => {
+  onChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
-    const isValid = value.length !== 0;
+    const value = eventData && (eventData.value as string);
+    const isValid = !!value && value.length !== 0;
 
     onChange && onChange({
       isValid,

@@ -7,7 +7,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Storages, Storage$Sections } from '@polkadot/storage/types';
 import { DropdownOptions } from '../util/types';
-import { I18nProps } from '../types';
+import { I18nProps, InputOnChangeEventData } from '../types';
 
 import '../InputExtrinsic/InputExtrinsic.css';
 
@@ -27,7 +27,7 @@ type Props = I18nProps & {
   isError?: boolean,
   labelMethod?: string,
   labelSection?: string,
-  onChange: (value: SectionItem<Storages>) => void,
+  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
   withLabel?: boolean
 };
 
@@ -81,21 +81,28 @@ class InputStorage extends React.PureComponent<Props, State> {
     );
   }
 
-  onKeyChange = (value: SectionItem<Storages>): void => {
+  onKeyChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
+
+    const newValue = eventData && (eventData.value as SectionItem<Storages>);
+
     const { value: { name, section } } = this.state;
 
-    if (value.section === section && value.name === name) {
+    if (newValue.section === section && newValue.name === name) {
       return;
     }
 
-    this.setState({ value }, () =>
-      onChange(value)
+    this.setState({ value: newValue }, () =>
+      onChange(event, {
+        value: newValue
+      })
     );
   }
 
-  onSectionChange = (newSection: Storage$Sections): void => {
+  onSectionChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { value: { section } } = this.state;
+
+    const newSection = eventData && (eventData.value as Storage$Sections);
 
     if (newSection === section) {
       return;
@@ -105,7 +112,9 @@ class InputStorage extends React.PureComponent<Props, State> {
     const value = map[newSection].public[optionsMethod[0].value];
 
     this.setState({ optionsMethod }, () =>
-      this.onKeyChange(value)
+      this.onKeyChange(event, {
+        value
+      })
     );
   }
 }

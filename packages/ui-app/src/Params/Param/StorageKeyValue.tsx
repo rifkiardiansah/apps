@@ -2,6 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
+import { InputOnChangeEventData } from '../../types';
 import { Props } from '../types';
 
 import React from 'react';
@@ -104,11 +105,15 @@ export default class StorageKeyValue extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeKey = (key: string): void => {
+  onChangeKey = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const key = eventData && (eventData.value as string);
+
     this.nextState({ key: this.createParam(key) } as State);
   }
 
-  onChangeValue = (value: string): void => {
+  onChangeValue = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const value = eventData && (eventData.value as string);
+
     this.nextState({ value: this.createParam(value) } as State);
   }
 }

@@ -2,6 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
+import { InputOnChangeEventData } from '../../types';
 import { Props as BaseProps, Size } from '../types';
 
 import React from 'react';
@@ -50,8 +51,10 @@ export default class BaseBytes extends React.PureComponent<Props> {
     );
   }
 
-  onChange = (hex: string): void => {
+  onChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { length = -1, onChange, validate = defaultValidate, withLength = false } = this.props;
+
+    const hex = eventData && (eventData.value as string);
 
     let u8a: Uint8Array;
 

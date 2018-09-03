@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import React from 'react';
 
@@ -193,15 +193,21 @@ class Creator extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeSeed = (seed: string): void => {
+  onChangeSeed = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData): void => {
+    const seed = data && (data.value as string);
+
     this.nextState({ seed } as State);
   }
 
-  onChangeName = (name: string): void => {
+  onChangeName = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData): void => {
+    const name = data && (data.value as string);
+
     this.nextState({ name } as State);
   }
 
-  onChangePass = (password: string): void => {
+  onChangePass = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData): void => {
+    const password = data && (data.value as string);
+
     this.nextState({ password } as State);
   }
 

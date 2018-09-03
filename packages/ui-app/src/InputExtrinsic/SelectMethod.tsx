@@ -4,7 +4,7 @@
 
 import { SectionItem } from '@polkadot/params/types';
 import { Extrinsics, Extrinsic$Sections } from '@polkadot/extrinsics/types';
-import { I18nProps } from '../types';
+import { I18nProps, InputOnChangeEventData } from '../types';
 import { DropdownOptions, SectionVisibilityAll } from '../util/types';
 
 import React from 'react';
@@ -18,7 +18,7 @@ import translate from '../translate';
 type Props = I18nProps & {
   isError?: boolean,
   label?: string,
-  onChange: (value: SectionItem<Extrinsics>) => void,
+  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
   options: DropdownOptions,
   type: SectionVisibilityAll,
   value: SectionItem<Extrinsics>,

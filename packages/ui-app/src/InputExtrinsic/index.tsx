@@ -6,7 +6,7 @@
 
 import { SectionItem } from '@polkadot/params/types';
 import { Extrinsics, Extrinsic$Sections } from '@polkadot/extrinsics/types';
-import { I18nProps } from '../types';
+import { I18nProps, InputOnChangeEventData } from '../types';
 import { DropdownOptions, SectionVisibilityAll } from '../util/types';
 
 import './InputExtrinsic.css';
@@ -28,7 +28,7 @@ type Props = I18nProps & {
   isPrivate?: boolean,
   labelMethod?: string,
   labelSection?: string,
-  onChange: (value: SectionItem<Extrinsics>) => void,
+  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
   withLabel?: boolean
 };
 
@@ -94,21 +94,27 @@ class InputExtrinsic extends React.PureComponent<Props, State> {
     );
   }
 
-  onKeyChange = (value: SectionItem<Extrinsics>): void => {
+  onKeyChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
     const { value: { name, section } } = this.state;
 
-    if (value.section === section && value.name === name) {
+    const newValue = eventData && (eventData.value as SectionItem<Extrinsics>);
+
+    if (newValue.section === section && newValue.name === name) {
       return;
     }
 
-    this.setState({ value }, () =>
-      onChange(value)
+    this.setState({ value: newValue }, () =>
+      onChange(event, {
+        value: newValue
+      })
     );
   }
 
-  onSectionChange = (newSection: Extrinsic$Sections): void => {
+  onSectionChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { type, value: { section } } = this.state;
+
+    const newSection = eventData && (eventData.value as Extrinsic$Sections);
 
     if (newSection === section) {
       return;
@@ -118,7 +124,9 @@ class InputExtrinsic extends React.PureComponent<Props, State> {
     const value = map[newSection][type][optionsMethod[0].value];
 
     this.setState({ optionsMethod }, () =>
-      this.onKeyChange(value)
+      this.onKeyChange(event, {
+        value
+      })
     );
   }
 }

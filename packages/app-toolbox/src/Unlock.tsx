@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { KeyringPair } from '@polkadot/util-keyring/types';
 
 import React from 'react';
@@ -149,7 +149,9 @@ class Unlock extends React.PureComponent<Props, State> {
     return null;
   }
 
-  onChangePassword = (password: string): void => {
+  onChangePassword = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const password = eventData && (eventData.value as string);
+
     this.setState({
       password,
       unlockError: null

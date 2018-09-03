@@ -3,7 +3,7 @@
 // of the ISC license. See the LICENSE file for details.
 
 import { ApiProps } from '@polkadot/ui-react-rx/types';
-import { I18nProps, BareProps } from '@polkadot/ui-app/types';
+import { I18nProps, BareProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { QueueTx, QueueTx$MessageSetStatus } from './types';
 
 import React from 'react';
@@ -194,14 +194,16 @@ class Signer extends React.PureComponent<Props, State> {
     return null;
   }
 
-  onChangePassword = (password: string): void => {
+  onChangePassword = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const password = eventData && (eventData.value as string);
+
     this.setState({
       password,
       unlockError: null
     });
   }
 
-  onKeyDown = (event: any): void => {
+  onKeyDown = (event: KeyboardEvent): void => {
     if (event.keyCode === 13) {
       const node = this.submitButtonDiv.current;
 

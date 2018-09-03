@@ -7,7 +7,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Interfaces, Interface$Sections } from '@polkadot/jsonrpc/types';
 import { DropdownOptions } from '../util/types';
-import { I18nProps } from '../types';
+import { I18nProps, InputOnChangeEventData } from '../types';
 
 import '../InputExtrinsic/InputExtrinsic.css';
 
@@ -27,7 +27,7 @@ type Props = I18nProps & {
   isError?: boolean,
   labelMethod?: string,
   labelSection?: string,
-  onChange: (value: SectionItem<Interfaces>) => void,
+  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
   withLabel?: boolean
 };
 
@@ -81,21 +81,27 @@ class InputRpc extends React.PureComponent<Props, State> {
     );
   }
 
-  onMethodChange = (value: SectionItem<Interfaces>): void => {
+  onMethodChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
     const { value: { name, section } } = this.state;
 
-    if (value.section === section && value.name === name) {
+    const newValue = eventData && (eventData.value as SectionItem<Interfaces>);
+
+    if (newValue.section === section && newValue.name === name) {
       return;
     }
 
-    this.setState({ value }, () =>
-      onChange(value)
+    this.setState({ value: newValue }, () =>
+      onChange(event, {
+        value: newValue
+      })
     );
   }
 
-  onSectionChange = (newSection: Interface$Sections): void => {
+  onSectionChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
     const { value: { section } } = this.state;
+
+    const newSection = eventData && (eventData.value as Interface$Sections);
 
     if (newSection === section) {
       return;
@@ -105,7 +111,9 @@ class InputRpc extends React.PureComponent<Props, State> {
     const value = map[newSection].public[optionsMethod[0].value];
 
     this.setState({ optionsMethod }, () =>
-      this.onMethodChange(value)
+      this.onMethodChange(event, {
+        value
+      })
     );
   }
 }

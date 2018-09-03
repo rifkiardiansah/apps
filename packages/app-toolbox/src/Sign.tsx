@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps as Props } from '@polkadot/ui-app/types';
+import { I18nProps as Props, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { KeyringPair } from '@polkadot/util-keyring/types';
 
 import React from 'react';
@@ -212,13 +212,15 @@ class Sign extends React.PureComponent<Props, State> {
     } as State);
   }
 
-  onChangeAccount = (publicKey: Uint8Array): void => {
-    const currentPair = keyring.getPair(publicKey);
+  onChangeAccount = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const publicKey = eventData && (eventData.value as Uint8Array);
+    const currentPair = !!publicKey && keyring.getPair(publicKey);
 
     this.nextState({ currentPair } as State);
   }
 
-  onChangeData = (data: string): void => {
+  onChangeData = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+    const data = eventData && (eventData.value as string);
     const isHexData = isHex(data);
 
     this.nextState({ data, isHexData } as State);
