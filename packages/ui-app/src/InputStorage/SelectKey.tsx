@@ -5,7 +5,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Storages } from '@polkadot/storage/types';
 import { DropdownOptions } from '../util/types';
-import { I18nProps, InputOnChangeEventData } from '../types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 
 import React from 'react';
 
@@ -18,7 +18,7 @@ import translate from '../translate';
 type Props = I18nProps & {
   isError?: boolean,
   label?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   options: DropdownOptions,
   value: SectionItem<Storages>,
   withLabel?: boolean

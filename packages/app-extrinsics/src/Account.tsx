@@ -3,7 +3,7 @@
 // of the ISC license. See the LICENSE file for details.
 
 import { KeyringOption$Type } from '@polkadot/ui-keyring/options/types';
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import React from 'react';
 
@@ -19,7 +19,7 @@ type Props = I18nProps & {
   isError?: boolean,
   isInput?: boolean,
   label: string,
-  onChange?: (publicKey: Uint8Array) => void,
+  onChange?: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
   type?: KeyringOption$Type,
   withLabel?: boolean
 };
@@ -86,8 +86,10 @@ class Account extends React.PureComponent<Props, State> {
     );
   }
 
-  private onChange = (publicKey: Uint8Array): void => {
+  private onChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
+
+    const publicKey = eventData && (eventData.value as Uint8Array);
 
     this.setState({ publicKey }, () =>
       onChange && onChange(publicKey)

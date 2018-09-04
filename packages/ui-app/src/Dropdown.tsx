@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { BareProps, InputOnChangeEventData } from './types';
+import { BareProps, InputOnChangeEvent, InputOnChangeEventData } from './types';
 
 import React from 'react';
 import SUIDropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
@@ -16,7 +16,7 @@ type Props<Option> = BareProps & {
   isDisabled?: boolean,
   isError?: boolean,
   label?: any, // node?
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   onSearch?: (filteredOptions: Array<Option>, query: string) => Array<Option>,
   options: Array<Option>,
   placeholder?: string,
@@ -80,10 +80,10 @@ export default class Dropdown<Option> extends React.PureComponent<Props<Option>>
     );
   }
 
-  onChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange, transform } = this.props;
 
-    const value = eventData && (eventData.value as SUIEvent);
+    const value = eventData && (eventData.value as KeyboardEvent);
 
     onChange(event, {
       value: transform

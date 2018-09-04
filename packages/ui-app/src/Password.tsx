@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { BareProps, InputOnChangeEventData, KeydownEvent } from './types';
+import { BareProps, InputOnChangeEvent, InputOnChangeEventData, KeydownEvent } from './types';
 
 import React from 'react';
 
@@ -17,7 +17,7 @@ type Props = BareProps & {
   isError?: boolean,
   label?: string,
   name?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   onKeyDown?: (event: KeydownEvent) => void,
   tabIndex?: number,
   value: any,

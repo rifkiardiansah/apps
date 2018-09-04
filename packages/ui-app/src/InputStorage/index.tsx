@@ -7,7 +7,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Storages, Storage$Sections } from '@polkadot/storage/types';
 import { DropdownOptions } from '../util/types';
-import { I18nProps, InputOnChangeEventData } from '../types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 
 import '../InputExtrinsic/InputExtrinsic.css';
 
@@ -27,7 +27,7 @@ type Props = I18nProps & {
   isError?: boolean,
   labelMethod?: string,
   labelSection?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   withLabel?: boolean
 };
 
@@ -81,7 +81,7 @@ class InputStorage extends React.PureComponent<Props, State> {
     );
   }
 
-  onKeyChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onKeyChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
 
     const newValue = eventData && (eventData.value as SectionItem<Storages>);
@@ -99,10 +99,10 @@ class InputStorage extends React.PureComponent<Props, State> {
     );
   }
 
-  onSectionChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onSectionChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { value: { section } } = this.state;
 
-    const newSection = eventData && (eventData.value as Storage$Sections);
+    const newSection = eventData && (eventData.section as Storage$Sections);
 
     if (newSection === section) {
       return;

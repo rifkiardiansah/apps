@@ -9,6 +9,10 @@ import { RxApiInterface } from '@polkadot/api-rx/types';
 import { SectionItem } from '@polkadot/params/types';
 import { Storages, Storage$Sections } from '@polkadot/storage/types';
 
+import { RawParam, RawParams } from './Params/types';
+
+import BN from 'bn.js';
+
 export type BareProps = {
   className?: string,
   style?: {
@@ -34,6 +38,32 @@ export type KeydownEvent = KeyboardEvent & {
   value: string
 };
 
+export type InputOnChangeEvent = {
+  event: React.SyntheticEvent<HTMLInputElement> | null
+}
+
 export type InputOnChangeEventData = {
-  value: boolean | Extrinsic$Sections | Interface$Sections | number | SectionItem<Extrinsics> | SectionItem<Interfaces> | SectionItem<Storages> | Storage$Sections | string | Uint8Array
+  address?: string,
+  currentPublicKey?: Uint8Array,
+  data?: string,
+  editedName?: string,
+  extrinsic?: SectionItem<Extrinsics>,
+  hash?: string,
+  hex?: string,
+  key?: SectionItem<Storages> | string,
+  match?: string,
+  params?: RawParams,
+  password?: string,
+  publicKey?: Uint8Array | null, // app-rpc Selection.tsx onChangeAccount
+  name?: string,
+  nominee?: string,
+  nonce?: BN, // app-rpc Selection.tsx onChangeAccount
+  rpc?: SectionItem<Interfaces>,
+  section?: Extrinsic$Sections | Interface$Sections | Storage$Sections,
+  seed?: string,
+  signature?: string,
+  withCase?: boolean,
+  value?: boolean | KeyboardEvent | number | SectionItem<Extrinsics> | SectionItem<Interfaces> | SectionItem<Storages> | string | Uint8Array,
+  // value: boolean | Extrinsic$Sections | Interface$Sections |  | number | RawParams | SectionItem<Extrinsics> | SectionItem<Interfaces> | SectionItem<Storages> | Storage$Sections | string | Uint8Array,
+  values?: Array<RawParam>
 }

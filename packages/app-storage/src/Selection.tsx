@@ -4,7 +4,7 @@
 
 import { SectionItem } from '@polkadot/params/types';
 import { Storages } from '@polkadot/storage/types';
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { RawParams } from '@polkadot/ui-app/Params/types';
 import { StorageQuery } from './types';
 
@@ -103,7 +103,9 @@ class Selection extends React.PureComponent<Props, State> {
     });
   }
 
-  onChangeKey = (key: SectionItem<Storages>): void => {
+  onChangeKey = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const key = eventData && (eventData.key as SectionItem<Storages>);
+
     this.nextState({
       isValid: false,
       key,
@@ -111,7 +113,9 @@ class Selection extends React.PureComponent<Props, State> {
     });
   }
 
-  onChangeParams = (params: RawParams = []): void => {
+  onChangeParams = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const params = eventData && (eventData.params as RawParams) || [];
+
     this.nextState({ params } as State);
   }
 }

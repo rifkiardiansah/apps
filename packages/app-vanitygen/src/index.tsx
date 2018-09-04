@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { Generator$Matches, Generator$Result } from './generator/types';
 
 import './index.css';
@@ -224,14 +224,14 @@ class VanityApp extends React.PureComponent<Props, State> {
     }, 0);
   }
 
-  onChangeCase = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
-    const withCase = eventData && (eventData.value as boolean);
+  onChangeCase = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const withCase = eventData && (eventData.withCase as boolean);
 
     this.setState({ withCase });
   }
 
-  onChangeMatch = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
-    const match = eventData && (eventData.value as string);
+  onChangeMatch = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const match = eventData && (eventData.match as string);
 
     this.setState({
       isMatchValid:

@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps as Props, InputOnChangeEventData } from '@polkadot/ui-app/types';
+import { I18nProps as Props, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import React from 'react';
 
@@ -90,8 +90,8 @@ class Hash extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeData = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
-    const data: string = eventData && (eventData.value as string);
+  onChangeData = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const data: string = eventData && (eventData.data as string);
     const isHexData = isHex(data);
     const hash = blake2AsHex(
       isHexData

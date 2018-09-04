@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { ApiProps } from '@polkadot/ui-react-rx/types';
 
 import React from 'react';
@@ -62,8 +62,8 @@ class Query extends React.PureComponent<Props, State> {
     );
   }
 
-  private setHash = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData) => {
-    const hash = data && (data.value as string);
+  private setHash = (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => {
+    const hash = eventData && (eventData.hash as string);
 
     this.setState({
       hash,

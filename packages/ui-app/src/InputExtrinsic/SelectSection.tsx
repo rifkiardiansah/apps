@@ -4,7 +4,7 @@
 
 import { SectionItem } from '@polkadot/params/types';
 import { Extrinsics, Extrinsic$Sections } from '@polkadot/extrinsics/types';
-import { I18nProps, InputOnChangeEventData } from '../types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 import { DropdownOptions } from '../util/types';
 
 import React from 'react';
@@ -17,7 +17,7 @@ type Props = I18nProps & {
   defaultValue?: Extrinsic$Sections,
   isError?: boolean,
   label?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   options: DropdownOptions,
   value: SectionItem<Extrinsics>,
   withLabel?: boolean

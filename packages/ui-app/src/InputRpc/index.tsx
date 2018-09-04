@@ -7,7 +7,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Interfaces, Interface$Sections } from '@polkadot/jsonrpc/types';
 import { DropdownOptions } from '../util/types';
-import { I18nProps, InputOnChangeEventData } from '../types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 
 import '../InputExtrinsic/InputExtrinsic.css';
 
@@ -27,7 +27,7 @@ type Props = I18nProps & {
   isError?: boolean,
   labelMethod?: string,
   labelSection?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   withLabel?: boolean
 };
 
@@ -81,7 +81,7 @@ class InputRpc extends React.PureComponent<Props, State> {
     );
   }
 
-  onMethodChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onMethodChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
     const { value: { name, section } } = this.state;
 
@@ -98,10 +98,10 @@ class InputRpc extends React.PureComponent<Props, State> {
     );
   }
 
-  onSectionChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onSectionChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { value: { section } } = this.state;
 
-    const newSection = eventData && (eventData.value as Interface$Sections);
+    const newSection = eventData && (eventData.section as Interface$Sections);
 
     if (newSection === section) {
       return;

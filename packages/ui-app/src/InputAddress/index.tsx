@@ -3,7 +3,7 @@
 // of the ISC license. See the LICENSE file for details.
 
 import { KeyringOptions, KeyringSectionOption, KeyringSectionOptions, KeyringOption$Type } from '@polkadot/ui-keyring/options/types';
-import { BareProps, InputOnChangeEventData } from '../types';
+import { BareProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 
 import './InputAddress.css';
 
@@ -30,7 +30,7 @@ type Props = BareProps & {
   isError?: boolean,
   isInput?: boolean,
   label?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   optionsAll?: KeyringOptions,
   placeholder?: string,
   type?: KeyringOption$Type,
@@ -163,10 +163,10 @@ class InputAddress extends React.PureComponent<Props, State> {
     );
   }
 
-  private onChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => {
+  private onChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => {
     const { onChange, type } = this.props;
 
-    const address = eventData && (eventData.value as string);
+    const address = eventData && (eventData.address as string);
 
     InputAddress.setLastValue(type, address);
 

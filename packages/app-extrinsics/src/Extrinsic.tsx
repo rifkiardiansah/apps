@@ -4,7 +4,7 @@
 
 import { SectionItem } from '@polkadot/params/types';
 import { Extrinsics } from '@polkadot/extrinsics/types';
-import { BareProps } from '@polkadot/ui-app/types';
+import { BareProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { ApiProps } from '@polkadot/ui-react-rx/types';
 import { RawParam } from '@polkadot/ui-app/Params/types';
 import { EncodedMessage } from '@polkadot/ui-signer/types';
@@ -94,11 +94,15 @@ class Extrinsic extends React.PureComponent<Props, State> {
     });
   }
 
-  onChangeExtrinsic = (extrinsic: SectionItem<Extrinsics>): void => {
+  onChangeExtrinsic = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const extrinsic = eventData && (eventData.extrinsic as SectionItem<Extrinsics>);
+
     this.nextState({ extrinsic, values: [] } as State);
   }
 
-  onChangeValues = (values: Array<RawParam>): void => {
+  onChangeValues = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const values = eventData && (eventData.values as Array<RawParam>);
+
     this.nextState({ values } as State);
   }
 }

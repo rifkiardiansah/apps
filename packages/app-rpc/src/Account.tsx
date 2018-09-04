@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import BN from 'bn.js';
 import React from 'react';
@@ -16,7 +16,7 @@ import translate from './translate';
 type Props = I18nProps & {
   defaultValue?: Uint8Array | null,
   isError?: boolean,
-  onChange: (publicKey: Uint8Array | undefined | null, nonce: BN) => void
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void
 };
 
 type State = {
@@ -82,20 +82,29 @@ class Account extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeAccount = (publicKey: Uint8Array): void => {
+  onChangeAccount = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
 
+    const publicKey = eventData && (eventData.publicKey as Uint8Array);
+
     this.setState({ publicKey }, () =>
-      onChange(publicKey, this.state.nonce)
+      onChange(event, {
+        publicKey,
+        nonce: this.state.nonce
+      })
     );
   }
 
-  onChangeNonce = (_nonce: BN): void => {
+  onChangeNonce = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
-    const nonce = _nonce || new BN(0);
+
+    const nonce = eventData && (eventData.nonce as BN) || new BN(0);
 
     this.setState({ nonce }, () =>
-      onChange(this.state.publicKey, nonce)
+      onChange(event, {
+        publicKey: this.state.publicKey,
+        nonce
+      })
     );
   }
 }

@@ -2,7 +2,7 @@
 // This software may be modified and distributed under the terms
 // of the ISC license. See the LICENSE file for details.
 
-import { I18nProps, InputOnChangeEventData, KeydownEvent } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData, KeydownEvent } from '@polkadot/ui-app/types';
 import { KeyringPair } from '@polkadot/util-keyring/types';
 
 import React from 'react';
@@ -15,7 +15,7 @@ import translate from './translate';
 type Props = I18nProps & {
   autoFocus?: boolean,
   error?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, data: InputOnChangeEventData) => void,
   onKeyDown?: (event: KeydownEvent) => void,
   password: string,
   tabIndex?: number,

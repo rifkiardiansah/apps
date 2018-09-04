@@ -5,7 +5,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Interfaces, Interface$Sections } from '@polkadot/jsonrpc/types';
 import { DropdownOptions } from '../util/types';
-import { I18nProps, InputOnChangeEventData } from '../types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 
 import React from 'react';
 
@@ -17,7 +17,7 @@ type Props = I18nProps & {
   defaultValue?: Interface$Sections,
   isError?: boolean,
   label?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   options: DropdownOptions,
   value: SectionItem<Interfaces>,
   withLabel?: boolean

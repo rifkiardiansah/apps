@@ -5,7 +5,7 @@
 import { SectionItem } from '@polkadot/params/types';
 import { Interfaces } from '@polkadot/jsonrpc/types';
 import { RawParam } from '@polkadot/ui-app/Params/types';
-import { I18nProps } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 import { QueueTx$MessageAdd } from '@polkadot/ui-signer/types';
 
 import './index.css';
@@ -107,15 +107,22 @@ class Selection extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeAccount = (publicKey: Uint8Array | undefined | null, nonce: BN): void => {
+  onChangeAccount = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const publicKey = eventData && (eventData.publicKey as Uint8Array | null);
+    const nonce = eventData && (eventData.nonce as BN);
+
     this.nextState({ nonce, publicKey } as State);
   }
 
-  onChangeMethod = (rpc: SectionItem<Interfaces>): void => {
+  onChangeMethod = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const rpc = eventData && (eventData.rpc as SectionItem<Interfaces>);
+
     this.nextState({ rpc } as State);
   }
 
-  onChangeValues = (values: Array<RawParam>): void => {
+  onChangeValues = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
+    const values = eventData && (eventData.values as Array<RawParam>);
+
     this.nextState({ values } as State);
   }
 

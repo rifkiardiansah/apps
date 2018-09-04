@@ -6,7 +6,7 @@
 
 import { SectionItem } from '@polkadot/params/types';
 import { Extrinsics, Extrinsic$Sections } from '@polkadot/extrinsics/types';
-import { I18nProps, InputOnChangeEventData } from '../types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '../types';
 import { DropdownOptions, SectionVisibilityAll } from '../util/types';
 
 import './InputExtrinsic.css';
@@ -28,7 +28,7 @@ type Props = I18nProps & {
   isPrivate?: boolean,
   labelMethod?: string,
   labelSection?: string,
-  onChange: (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData) => void,
+  onChange: (event: InputOnChangeEvent, eventData: InputOnChangeEventData) => void,
   withLabel?: boolean
 };
 
@@ -94,7 +94,7 @@ class InputExtrinsic extends React.PureComponent<Props, State> {
     );
   }
 
-  onKeyChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onKeyChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { onChange } = this.props;
     const { value: { name, section } } = this.state;
 
@@ -111,10 +111,10 @@ class InputExtrinsic extends React.PureComponent<Props, State> {
     );
   }
 
-  onSectionChange = (event: React.SyntheticEvent<HTMLInputElement>, eventData: InputOnChangeEventData): void => {
+  onSectionChange = (event: InputOnChangeEvent, eventData: InputOnChangeEventData): void => {
     const { type, value: { section } } = this.state;
 
-    const newSection = eventData && (eventData.value as Extrinsic$Sections);
+    const newSection = eventData && (eventData.section as Extrinsic$Sections);
 
     if (newSection === section) {
       return;

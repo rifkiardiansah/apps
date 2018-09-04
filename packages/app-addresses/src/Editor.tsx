@@ -3,7 +3,7 @@
 // of the ISC license. See the LICENSE file for details.
 
 import { KeyringAddress } from '@polkadot/ui-keyring/types';
-import { I18nProps, InputOnChangeEventData } from '@polkadot/ui-app/types';
+import { I18nProps, InputOnChangeEvent, InputOnChangeEventData } from '@polkadot/ui-app/types';
 
 import React from 'react';
 
@@ -170,8 +170,8 @@ class Editor extends React.PureComponent<Props, State> {
     );
   }
 
-  onChangeAddress = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData): void => {
-    const publicKey = data && (data.value as Uint8Array);
+  onChangeAddress = (event: InputOnChangeEvent, data: InputOnChangeEventData): void => {
+    const publicKey = data && (data.publicKey as Uint8Array);
 
     const current = publicKey && publicKey.length === 32
       ? (keyring.getAddress(publicKey) || null)
@@ -180,8 +180,8 @@ class Editor extends React.PureComponent<Props, State> {
     this.nextState({ current } as State);
   }
 
-  onChangeName = (event: React.SyntheticEvent<HTMLInputElement>, data: InputOnChangeEventData): void => {
-    const editedName = data && (data.value as string);
+  onChangeName = (event: InputOnChangeEvent, data: InputOnChangeEventData): void => {
+    const editedName = data && (data.editedName as string);
 
     this.nextState({ editedName } as State);
   }
